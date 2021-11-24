@@ -100,6 +100,7 @@ function flipCard() {
     }) ;
      tl.to(card, { scaleX: 1, duration: 0.5 });
   }
+  
 
   function disableCards() {
     firstCard.removeEventListener('click', flipCard);
@@ -111,9 +112,6 @@ function flipCard() {
       secondCard.style.display = "none";      
       resetBoard();
     },1000) 
-
-
-
   }
 
   function unflipCards() {
@@ -121,10 +119,12 @@ function flipCard() {
     point -= 1000;
     scoreDOM.value = "SCORE: " + point;
     setTimeout(() => {
-      firstCard.firstChild.style.display = "flex";
-      firstCard.lastChild.hidden = true;
-      secondCard.firstChild.style.display = "flex";
-      secondCard.lastChild.hidden = true;
+    flipClose(firstCard);
+    flipClose(secondCard);
+      // firstCard.firstChild.style.display = "flex";
+      // firstCard.lastChild.hidden = true;
+      // secondCard.firstChild.style.display = "flex";
+      // secondCard.lastChild.hidden = true;
     },1000) 
       if(point <= 0) {
       scoreDOM.value = "SCORE: " + 0;
@@ -133,7 +133,15 @@ function flipCard() {
         window.location = '/index.html';
       },200) 
     }
- 
+    function flipClose(card){
+      let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
+      tl.to(card, { scaleX: 0, duration: 0.5 });
+        tl.add(function () {
+            card.firstChild.style.display = "flex";
+            card.lastChild.hidden = true;
+      }) ;
+       tl.to(card, { scaleX: 1, duration: 0.5 });
+    }
    setTimeout(() => {
       firstCard.classList.remove('flip');
       secondCard.classList.remove('flip');
