@@ -42,7 +42,6 @@ const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpe
             let label = new Label();
             let sprite = new Sprite();
             let cover = new Cover();
-
             cover.initStyle();
             cover.addChild(label);
             cover.addChild(sprite);
@@ -54,10 +53,6 @@ const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpe
             sprite.height = 100;
             sprite.x = j*sprite.height + startX +j;
             sprite.y = i*sprite.width + startY + i;
-            // label.width = 100;
-            // label.height = 100;
-            // label.x = j*label.height + startX +j;
-            // label.y = i*label.width + startY + i;
             let ramdom = Math.floor(Math.random()*imgRandom.length);
             sprite.setImage(`./images/${imgRandom[ramdom]}`);
             document.body.appendChild(cover.view);
@@ -79,25 +74,16 @@ scoreDOM.value = `SCORE: ${point}`;
 function flipCard() {
     if (lockBoard) return;
     if (this === firstCard) return;
-      // this.firstChild.hidden = true;
-      // this.lastChild.hidden = false;
-
-      let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-  tl.to(this, { scaleX: 0, duration: 1 });
-    // this.lastChild.hidden = false;
-  tl.to(this.lastChild, { scaleX: 1, duration: 1 });
-  // tl.to(this.lastChild, { scaleX: 0, duration: 0 });
-  // tl.to(this.lastChild, { scaleX: 1, duration: 0 });
-       
     this.classList.add('flip');
-  
     if (!hasFlippedCard) {
       hasFlippedCard = true;
       firstCard = this;  
+      flipOpen(firstCard);
       return;
     }
 
     secondCard = this;
+    flipOpen(secondCard);
     checkForMatch();
   }
   function checkForMatch() {
@@ -105,22 +91,26 @@ function flipCard() {
     isMatch ? disableCards() : unflipCards();
   }
 
+  function flipOpen(card){
+    let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
+    tl.to(card, { scaleX: 0, duration: 0.5 });
+      tl.add(function () {
+       card.firstChild.style.display = "none";
+       card.lastChild.hidden = false;
+    }) ;
+     tl.to(card, { scaleX: 1, duration: 0.5 });
+  }
+
   function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
     point += 1000;
     scoreDOM.value = "SCORE: " + point;
-    // firstChild.hidden = true;
-    // lastChild.hidden = true;
-    // firstCard.firstChild.hidden = true;
-    // firstCard.lastChild.hidden = true;
-    // secondCard.firstChild.hidden = true;
-    // secondCard.lastChild.hidden = true;
     setTimeout(() => {
-      firstCard.hidden = true;
-      secondCard.hidden = true;
+      firstCard.style.display = "none";
+      secondCard.style.display = "none";      
       resetBoard();
-    },500) 
+    },1000) 
 
 
 
@@ -130,6 +120,12 @@ function flipCard() {
     lockBoard = true;
     point -= 1000;
     scoreDOM.value = "SCORE: " + point;
+    setTimeout(() => {
+      firstCard.firstChild.style.display = "flex";
+      firstCard.lastChild.hidden = true;
+      secondCard.firstChild.style.display = "flex";
+      secondCard.lastChild.hidden = true;
+    },1000) 
       if(point <= 0) {
       scoreDOM.value = "SCORE: " + 0;
       setTimeout(() => {
@@ -139,16 +135,10 @@ function flipCard() {
     }
  
    setTimeout(() => {
-
       firstCard.classList.remove('flip');
       secondCard.classList.remove('flip');
-      // firstCard.firstChild.hidden = false;
-      // firstCard.lastChild.hidden = true;
-      
-      // secondCard.firstChild.hidden = false;
-      // secondCard.lastChild.hidden = true;
       resetBoard();
-    }, 500);
+    }, 2000);
   }
 
   function resetBoard() {
