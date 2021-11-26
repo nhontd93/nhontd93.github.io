@@ -140,16 +140,20 @@ function flipCard() {
     setTimeout(() => {
     flipClose(firstCard);
     flipClose(secondCard);
+  
      },1000) 
-    point -= 1000;
-    scoreDOM.value = "SCORE: " + point;
-      if(point <= 0) {
-      scoreDOM.value = "SCORE: " + 0;
-      setTimeout(() => {
+     setTimeout(() => {
+      point -= 2000;
+      if (point>0) {
+        scoreDOM.value = "SCORE: " + point;
+      } else {      
+        scoreDOM.value = "SCORE: " + 0;
+        setTimeout(() => {
         alert("GAME OVER");
-        window.location = './index.html';
-      },1000) 
-    }
+        window.location = './index.html';},100);
+      }
+      },2000); 
+    
     function flipClose(card){
       let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
       tl.to(card, { scaleX: 0, duration: 0.5 });
