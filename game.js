@@ -115,7 +115,7 @@ class Game extends Node {
                       //Animation
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
               tl.delay(0.05*num).to(cover, {
-                  duration: 3,
+                  duration: 1.5,
                   ease: "elastic.out(0.5, 0.3)",
                   x: 100*j + startX + j,
                   y: 100*i + startY + i,
