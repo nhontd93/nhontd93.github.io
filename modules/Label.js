@@ -24,6 +24,5 @@ export class Label extends Node {
         this.view.style.justifyContent = 'center';
         this.view.style.alignItems = 'center';
         this.view.style.backgroundColor = 'orange';
-        this.view.hidden = true;
     }
 }
