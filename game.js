@@ -84,7 +84,10 @@ function flipCard() {
 
     secondCard = this;
     flipOpen(secondCard);
-    checkForMatch();
+    setTimeout(() => {
+      checkForMatch();
+    },500);
+
   }
   function checkForMatch() {
     let isMatch = firstCard.lastChild.src === secondCard.lastChild.src;
@@ -103,35 +106,49 @@ function flipCard() {
   
 
   function disableCards() {
+    setTimeout(() => {
+    zoomCard(firstCard);
+    zoomCard(secondCard);
+    }, 500)
+  
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
-    point += 1000;
-    scoreDOM.value = "SCORE: " + point;
+    // point += 1000;
+    // scoreDOM.value = "SCORE: " + point;
     setTimeout(() => {
+      point += 1000;
+      scoreDOM.value = "SCORE: " + point;
       firstCard.style.display = "none";
       secondCard.style.display = "none";      
       resetBoard();
     },1000) 
   }
+  function zoomCard(card) {
+    let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
+    // tl.to(card, { scale: 1.2, duration: 0.5 });
+      tl.add(function () {
+       card.firstChild.style.display = "none";
+       card.lastChild.hidden = false;
+    }) ;
+     tl.to(card, { scale: 1.2, duration: 0.5 });
+  }
 
   function unflipCards() {
     lockBoard = true;
-    point -= 1000;
-    scoreDOM.value = "SCORE: " + point;
+    // point -= 1000;
+    // scoreDOM.value = "SCORE: " + point;
     setTimeout(() => {
     flipClose(firstCard);
     flipClose(secondCard);
-      // firstCard.firstChild.style.display = "flex";
-      // firstCard.lastChild.hidden = true;
-      // secondCard.firstChild.style.display = "flex";
-      // secondCard.lastChild.hidden = true;
-    },1000) 
+     },1000) 
+    point -= 1000;
+    scoreDOM.value = "SCORE: " + point;
       if(point <= 0) {
       scoreDOM.value = "SCORE: " + 0;
       setTimeout(() => {
-        alert("game over");
-        window.location = '/index.html';
-      },200) 
+        alert("GAME OVER");
+        window.location = './index.html';
+      },1000) 
     }
     function flipClose(card){
       let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
