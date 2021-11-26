@@ -63,7 +63,7 @@ class Game extends Node {
       createCards();
       setTimeout(() => {
       score.view.hidden = false;
-      btnPlay.hidden = true;},1500);
+      btnPlay.hidden = true;},3000);
     };
     document.body.appendChild(btnPlay);
   
@@ -76,14 +76,7 @@ class Game extends Node {
     btnReplay.style.left = "120px";
     btnReplay.innerHTML = "REPLAY";
     btnReplay.onclick = function () {
-      
-      // setTimeout(() => {
         window.location = './index.html';
-        for (let n=0; n<1000; n++) {
-          console.log(n);}
-        // createCards();
-        // },10000);
-        
     };
     document.body.appendChild(btnReplay);
     let btnRetry = document.createElement("button");
@@ -113,22 +106,19 @@ class Game extends Node {
               cover.y = 270; 
               sprite.width = 100;
               sprite.height = 100;
-              // sprite.x = j*sprite.height + startX +j;
-              // sprite.y = i*sprite.width + startY + i;
               let ramdom = Math.floor(Math.random()*imgRandom.length);
               sprite.setImage(`./images/${imgRandom[ramdom]}`);
               document.body.appendChild(cover.view);
               imgRandom.splice(ramdom,1); 
               num++;
-              if (num > 20) num = 1;  
               label.string = num;
                       //Animation
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-              tl.delay(0.05 * num).to(cover, {
-                  duration: 1.5,
+              tl.delay(0.05*num).to(cover, {
+                  duration: 3,
                   ease: "elastic.out(0.5, 0.3)",
-                  x: 100*j + startX +j,
-                  y: 100*i +startY +i,
+                  x: 100*j + startX + j,
+                  y: 100*i + startY + i,
                  
                 })
                ;
