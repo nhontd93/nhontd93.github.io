@@ -9,13 +9,15 @@ class Game extends Node {
         
     }
 }
-
-const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpeg","heiji.jpeg","mitsuhiko.jpeg","mori.jpeg","ran.jpeg","yusaku.jpeg"];
+    // document.body.style.backgroundColor = "aquamarine";
+    document.body.style.backgroundImage = "url(./images/cover.jpeg)";
+    document.body.style.backgroundSize = "cover";
+    const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpeg","heiji.jpeg","mitsuhiko.jpeg","mori.jpeg","ran.jpeg","yusaku.jpeg"];
     const duplicateImages = images.concat(images);
     let imgRandom = [...duplicateImages];
 
-    const startX = 70;
-    const startY = 10;
+    const startX = 10;
+    const startY = 100;
     let score = new Node();
 
     score.initView();
@@ -29,7 +31,6 @@ const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpe
     score.view.style.borderRadius = "10px";
     score.view.style.width = "300px";
     score.view.style.height = "70px";
-    score.view.style.marginLeft = "160px";
     score.view.style.marginTop = "10px"; 
     score.view.style.fontSize = "30px";
     score.view.style.textAlign = "center";
@@ -37,8 +38,8 @@ const images = ["agasa.jpeg","ayumi.jpeg","conan.jpeg","genta.jpeg","haibara.jpe
     score.x = 170;
     score.y = 10;
     let num = 0;
-    for(let i=1 ; i<=4; i++){
-        for(let j = 1; j <=5; j++){
+    for(let i=0 ; i<4; i++){
+        for(let j = 0; j <5; j++){
             let label = new Label();
             let sprite = new Sprite();
             let cover = new Cover();
@@ -113,8 +114,6 @@ function flipCard() {
   
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
-    // point += 1000;
-    // scoreDOM.value = "SCORE: " + point;
     setTimeout(() => {
       point += 1000;
       scoreDOM.value = "SCORE: " + point;
@@ -125,7 +124,6 @@ function flipCard() {
   }
   function zoomCard(card) {
     let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-    // tl.to(card, { scale: 1.2, duration: 0.5 });
       tl.add(function () {
        card.firstChild.style.display = "none";
        card.lastChild.hidden = false;
@@ -134,12 +132,10 @@ function flipCard() {
   }
 
   function unflipCards() {
-    lockBoard = true;
-    // point -= 1000;
-    // scoreDOM.value = "SCORE: " + point;
-    setTimeout(() => {
-    flipClose(firstCard);
-    flipClose(secondCard);
+      lockBoard = true;
+      setTimeout(() => {
+      flipClose(firstCard);
+      flipClose(secondCard);
   
      },1000) 
      setTimeout(() => {
@@ -152,7 +148,7 @@ function flipCard() {
         alert("GAME OVER");
         window.location = './index.html';},100);
       }
-      },2000); 
+      },900); 
     
     function flipClose(card){
       let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
