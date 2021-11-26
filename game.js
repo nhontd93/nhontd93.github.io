@@ -27,6 +27,8 @@ class Game extends Node {
 
     const startX = 10;
     const startY = 120;
+    const col = 5;
+    const row = 4;
     let score = new Node();
 
     score.initView();
@@ -59,8 +61,9 @@ class Game extends Node {
     btnPlay.innerHTML = "PLAY";
     btnPlay.onclick = function () {
       createCards();
+      setTimeout(() => {
       score.view.hidden = false;
-      btnPlay.hidden = true;
+      btnPlay.hidden = true;},1500);
     };
     document.body.appendChild(btnPlay);
   
@@ -96,8 +99,8 @@ class Game extends Node {
     };
     document.body.appendChild(btnRetry);
     function createCards() {
-      for(let i=0 ; i<4; i++){
-          for(let j = 0; j <5; j++){
+      for(let i=0 ; i<row; i++){
+          for(let j = 0; j <col; j++){
               let label = new Label();
               let sprite = new Sprite();
               let cover = new Cover();
@@ -106,12 +109,12 @@ class Game extends Node {
               cover.addChild(sprite);
               cover.width = 100
               cover.height = 100;
-              cover.x = j*cover.height + startX + j;
-              cover.y = i*cover.width + startY + i; 
+              cover.x = 210;
+              cover.y = 270; 
               sprite.width = 100;
               sprite.height = 100;
-              sprite.x = j*sprite.height + startX +j;
-              sprite.y = i*sprite.width + startY + i;
+              // sprite.x = j*sprite.height + startX +j;
+              // sprite.y = i*sprite.width + startY + i;
               let ramdom = Math.floor(Math.random()*imgRandom.length);
               sprite.setImage(`./images/${imgRandom[ramdom]}`);
               document.body.appendChild(cover.view);
@@ -119,6 +122,16 @@ class Game extends Node {
               num++;
               if (num > 20) num = 1;  
               label.string = num;
+                      //Animation
+              let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
+              tl.delay(0.05 * num).to(cover, {
+                  duration: 1.5,
+                  ease: "elastic.out(0.5, 0.3)",
+                  x: 100*j + startX +j,
+                  y: 100*i +startY +i,
+                 
+                })
+               ;
               }     
       }
       const covers = document.querySelectorAll('.cover');
