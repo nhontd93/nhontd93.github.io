@@ -58,7 +58,7 @@ class Game extends Node {
                       //Animation
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
               tl.delay(0.05*num).to(cover, {
-                  duration: 2,
+                  duration: 1.5,
                   ease: "elastic.out(0.5, 0.3)",
                   x: 100*j + startX + j,
                   y: 100*i + startY + i,                 
@@ -226,10 +226,6 @@ scoreDOM.value = `SCORE: ${point}`;
           card.firstChild.style.display = "flex";
           card.lastChild.hidden = true;
     }) ;
-<<<<<<< HEAD
-     tl.to(card, { scaleX: 1, duration: 0.5 });
-} 
-=======
      tl.to(card, { scale: 1.2, duration: 0.5 });
   }
 
@@ -272,4 +268,3 @@ scoreDOM.value = `SCORE: ${point}`;
     [hasFlippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
   }
->>>>>>> 843c9c77dcd4acf853da98b7591c455a624735c7
