@@ -58,7 +58,7 @@ class Game extends Node {
                       //Animation
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
               tl.delay(0.05*num).to(cover, {
-                  duration: 3,
+                  duration: 2,
                   ease: "elastic.out(0.5, 0.3)",
                   x: 100*j + startX + j,
                   y: 100*i + startY + i,                 
@@ -226,5 +226,50 @@ scoreDOM.value = `SCORE: ${point}`;
           card.firstChild.style.display = "flex";
           card.lastChild.hidden = true;
     }) ;
+<<<<<<< HEAD
      tl.to(card, { scaleX: 1, duration: 0.5 });
 } 
+=======
+     tl.to(card, { scale: 1.2, duration: 0.5 });
+  }
+
+  function unflipCards() {
+      lockBoard = true;
+      setTimeout(() => {
+      flipClose(firstCard);
+      flipClose(secondCard);
+  
+     },1000) 
+     setTimeout(() => {
+      point -= 1000;
+      if (point>0) {
+        scoreDOM.value = "SCORE: " + point;
+      } else {      
+        scoreDOM.value = "SCORE: " + 0;
+        setTimeout(() => {
+        alert("GAME OVER");
+        window.location = './index.html';},100);
+      }
+      },900); 
+    
+    function flipClose(card){
+      let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
+      tl.to(card, { scaleX: 0, duration: 0.5 });
+        tl.add(function () {
+            card.firstChild.style.display = "flex";
+            card.lastChild.hidden = true;
+      }) ;
+       tl.to(card, { scaleX: 1, duration: 0.5 });
+    }
+   setTimeout(() => {
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+      resetBoard();
+    }, 2000);
+  }
+
+  function resetBoard() {
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
+  }
+>>>>>>> 843c9c77dcd4acf853da98b7591c455a624735c7
