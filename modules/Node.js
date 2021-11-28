@@ -39,7 +39,7 @@ export class Node {
     }
     initView() {
         this.view = document.createElement('div');
-        this.view.classList.add('node');
+        // this.view.classList.add('node');
     }
     addChild(node){
         this.children.push(node);
