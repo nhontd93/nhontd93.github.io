@@ -1,4 +1,4 @@
-import { Node } from "./Node.js";
+import { Node } from './Node.js';
 export class Sprite extends Node {
     constructor(path) {
         super();

@@ -1,4 +1,4 @@
-import { Node } from "./Node.js";
+import { Node } from './Node.js';
 export class Button extends Node{
     constructor() {
         super();
@@ -15,6 +15,6 @@ export class Button extends Node{
         this.view.innerHTML = obj.name;
     }
     _initView() {
-        this.view = document.createElement("button");
+        this.view = document.createElement('button');
     }
 }

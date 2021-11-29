@@ -1,16 +1,16 @@
-import { Node } from "./modules/Node.js";
-import { Cover } from "./modules/Cover.js";
-import { Label } from "./modules/Label.js";
-import { Sprite } from "./modules/Sprite.js";
-import { Button } from "./modules/Button.js";
+import { Node } from './modules/Node.js';
+import { Cover } from './modules/Cover.js';
+import { Label } from './modules/Label.js';
+import { Sprite } from './modules/Sprite.js';
+import { Button } from './modules/Button.js';
 
 class Game extends Node {
     constructor(){
         super();        
     }
 }
-    document.body.style.backgroundImage = "url(./images/cover.jpeg)";
-    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundImage = 'url(./images/cover.jpeg)';
+    document.body.style.backgroundSize = 'cover';
     let imgSources = [];
     let arrCovers = [];
     const startX = 10;
@@ -21,23 +21,23 @@ class Game extends Node {
     score.initScoreBox();
     let num = 0;
     function createCards(name) {
-      if (name == "REPLAY") {
+      if (name == 'REPLAY') {
         detroyCard();
         imgSources = [];
-      } else if (name == "RETRY") {
+      } else if (name == 'RETRY') {
         detroyCard();
       }
       const images = [
-        "agasa.jpeg",
-        "ayumi.jpeg",
-        "conan.jpeg",
-        "genta.jpeg",
-        "haibara.jpeg",
-        "heiji.jpeg",
-        "mitsuhiko.jpeg",
-        "mori.jpeg",
-        "ran.jpeg",
-        "yusaku.jpeg"];
+        'agasa.jpeg',
+        'ayumi.jpeg',
+        'conan.jpeg',
+        'genta.jpeg',
+        'haibara.jpeg',
+        'heiji.jpeg',
+        'mitsuhiko.jpeg',
+        'mori.jpeg',
+        'ran.jpeg',
+        'yusaku.jpeg'];
         const duplicateImages = images.concat(images);
         let imgRandom = [...duplicateImages];
       for(let i=0 ; i<row; i++){
@@ -63,14 +63,14 @@ class Game extends Node {
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
               tl.delay(0.05*num).to(cover, {
                   duration: 1.5,
-                  ease: "elastic.out(0.5, 0.3)",
+                  ease: 'elastic.out(0.5, 0.3)',
                   x: 100*j + startX + j,
                   y: 100*i + startY + i,                 
               });          
           }     
       }
       function imagesSource(name) {
-        if (name == "PLAY" || name == "REPLAY") {
+        if (name == 'PLAY' || name == 'REPLAY') {
           let ramdom = Math.floor(Math.random()*imgRandom.length);
               sprite.setImage(`./images/${imgRandom[ramdom]}`);
               imgSources.push(imgRandom[ramdom]);                 
@@ -124,7 +124,7 @@ scoreDOM.value = `SCORE: ${point}`;
       secondCard.removeEventListener('click', flipCard);
       setTimeout(() => {
         point += 1000;
-        scoreDOM.value = "SCORE: " + point;  
+        scoreDOM.value = 'SCORE: ' + point;  
         firstCard.remove(); 
         secondCard.remove();
         resetBoard();
@@ -144,11 +144,11 @@ scoreDOM.value = `SCORE: ${point}`;
       setTimeout(() => {
         point -= 1000;
         if (point>0) {
-          scoreDOM.value = "SCORE: " + point;
+          scoreDOM.value = 'SCORE: ' + point;
         } else {      
-          scoreDOM.value = "SCORE: " + 0;
+          scoreDOM.value = 'SCORE: ' + 0;
           setTimeout(() => {
-          alert("GAME OVER");},100);
+          alert('GAME OVER');},100);
         };
         },900); 
       setTimeout(() => {
@@ -164,18 +164,18 @@ scoreDOM.value = `SCORE: ${point}`;
   }
   
   let stylePlay = {
-      position: "absolute",
+      position: 'absolute',
       width: 150,
       height: 50,
-      fontSize: "20px",
+      fontSize: '20px',
       x: 186,
       y: 30,
-      name: "PLAY"
+      name: 'PLAY'
   }
   let btnPlay = new Button();
       btnPlay._initStyleElement(stylePlay);
       btnPlay.view.onclick = function () {
-        createCards("PLAY");
+        createCards('PLAY');
         setTimeout(() => {
           score.view.hidden = false;
           btnPlay.view.hidden = true;
@@ -186,42 +186,42 @@ scoreDOM.value = `SCORE: ${point}`;
   document.body.appendChild(btnPlay.view);
 
   let styleRePlay = {
-      position: "absolute",
+      position: 'absolute',
       width: 150,
       height: 50,
-      fontSize: "20px",
+      fontSize: '20px',
       x: 10,
       y: 30,
-      name: "REPLAY"
+      name: 'REPLAY'
   }
   let btnReplay = new Button();
       btnReplay._initStyleElement(styleRePlay);
       btnReplay.view.hidden = true;
       btnReplay.view.onclick = function () {
         point = 10000;
-        scoreDOM.value = "SCORE: " + point;
+        scoreDOM.value = 'SCORE: ' + point;
         isWin = 0;
-        createCards("REPLAY");
+        createCards('REPLAY');
       }
   document.body.appendChild(btnReplay.view);
 
   let styleRetry = {
-      position: "absolute",
+      position: 'absolute',
       width: 150,
       height: 50,
-      fontSize: "20px",
+      fontSize: '20px',
       x: 365,
       y: 30,
-      name: "RETRY"
+      name: 'RETRY'
   }
   let btnRetry = new Button();
       btnRetry._initStyleElement(styleRetry);
       btnRetry.view.hidden = true;
       btnRetry.view.onclick = function () {
         point = 10000;
-        scoreDOM.value = "SCORE: " + point;
+        scoreDOM.value = 'SCORE: ' + point;
         isWin = 0;
-        createCards("RETRY");
+        createCards('RETRY');
       }
   document.body.appendChild(btnRetry.view);
 
@@ -239,7 +239,7 @@ scoreDOM.value = `SCORE: ${point}`;
     let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
     tl.to(card, { scaleX: 0, duration: 0.5 });
       tl.add(function () {
-          card.firstChild.style.display = "flex";
+          card.firstChild.style.display = 'flex';
           card.lastChild.hidden = true;
     }) ;
      tl.to(card, { scale: 1, duration: 0.5 });
