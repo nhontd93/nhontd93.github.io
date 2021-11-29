@@ -3,10 +3,12 @@ import { Cover } from './modules/Cover.js';
 import { Label } from './modules/Label.js';
 import { Sprite } from './modules/Sprite.js';
 import { Button } from './modules/Button.js';
+import { zoomCard, flipOpen, flipClose } from "./modules/Animation.js";
+
 
 class Game extends Node {
     constructor(){
-        super();        
+        super();   
     }
 }
     document.body.style.backgroundImage = 'url(./images/cover.jpeg)';
@@ -83,6 +85,8 @@ class Game extends Node {
       const covers = document.querySelectorAll('.cover');
       covers.forEach(cover => cover.addEventListener('click', flipCard));
   }   
+
+
 
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -225,35 +229,6 @@ scoreDOM.value = `SCORE: ${point}`;
       }
   document.body.appendChild(btnRetry.view);
 
-  function flipOpen(card){
-    let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-    tl.to(card, { scaleX: 0, duration: 0.5 });
-      tl.add(function () {
-       card.firstChild.style.display = 'none';
-       card.lastChild.hidden = false;
-    }) ;
-     tl.to(card, { scaleX: 1, duration: 0.5 });
-  }
-
-  function flipClose(card){
-    let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-    tl.to(card, { scaleX: 0, duration: 0.5 });
-      tl.add(function () {
-          card.firstChild.style.display = 'flex';
-          card.lastChild.hidden = true;
-    }) ;
-     tl.to(card, { scale: 1, duration: 0.5 });
-  }
-
-  function zoomCard(card) {
-    let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
-      tl.add(function () {
-      card.firstChild.style.display = 'none';
-      card.lastChild.hidden = false;
-      card.style.zIndex = 3;
-    }) ;
-    tl.to(card, { scale: 1.2, duration: 0.5 });
-}
 
   function detroyCard() {
     for (let item of arrCovers)
