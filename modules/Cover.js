@@ -3,7 +3,7 @@ export class Cover extends Node {
     constructor() {
         super();
     }
-    initStyle(){
+    _initStyle(){
         this.view.style.position = 'absolute';
         this.view.style.display = 'flex';
         this.view.style.flexWrap = 'nowrap';

@@ -5,16 +5,16 @@ export class Label extends Node {
         super();
         this._string = string || "";
         this.string = this._string;
-        this.initStyle();
+        this._initStyle();
     }
-    initStyle(){
+    _initStyle(){
         this.view.classList = 'number';
     }
     get string() {
         return this._string;
     }
-    initScoreBox() {
-    this.initView();
+    _initScoreBox() {
+    this._initView();
     this.view = document.createElement("input");
     document.body.appendChild(this.view);
     this.view.readOnly = true;

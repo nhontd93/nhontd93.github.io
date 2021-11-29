@@ -5,7 +5,6 @@ import { Sprite } from './modules/Sprite.js';
 import { Button } from './modules/Button.js';
 import { zoomCard, flipOpen, flipClose } from "./modules/Animation.js";
 
-
 class Game extends Node {
     constructor(){
         super();   
@@ -20,7 +19,7 @@ class Game extends Node {
     const col = 5;
     const row = 4;
     let score = new Label();
-    score.initScoreBox();
+    score._initScoreBox();
     let num = 0;
     function createCards(name) {
       if (name == 'REPLAY') {
@@ -47,7 +46,7 @@ class Game extends Node {
               var label = new Label();
               var sprite = new Sprite();
               var cover = new Cover();
-              cover.initStyle();
+              cover._initStyle();
               cover.addChild(label);
               cover.addChild(sprite);
               arrCovers.push(cover.view);
@@ -58,10 +57,9 @@ class Game extends Node {
               cover.y = 270; 
               sprite.width = 100;
               sprite.height = 100;
-              document.body.appendChild(cover.view);   
+              document.body.appendChild(cover.view);  
               num++;
-              label.string = num;
-              if (num > 19) num = 0;
+              label.string = num;              
               let tl = gsap.timeline({ repeat: 0, repeatDelay: 0 });
               tl.delay(0.05*num).to(cover, {
                   duration: 1.5,
@@ -75,18 +73,16 @@ class Game extends Node {
         if (name == 'PLAY' || name == 'REPLAY') {
           let ramdom = Math.floor(Math.random()*imgRandom.length);
               sprite.setImage(`./images/${imgRandom[ramdom]}`);
-              imgSources.push(imgRandom[ramdom]);                 
+              imgSources.push(imgRandom[ramdom]);        
               imgRandom.splice(ramdom,1);
         } else {
               sprite.setImage(`./images/${imgSources[num]}`);
         }
-          
       }
+      setTimeout(() => {
       const covers = document.querySelectorAll('.cover');
-      covers.forEach(cover => cover.addEventListener('click', flipCard));
-  }   
-
-
+      covers.forEach(cover => cover.addEventListener('click', flipCard))},1500)
+    }  
 
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -106,12 +102,9 @@ scoreDOM.value = `SCORE: ${point}`;
         flipOpen(firstCard);
         return;
       }
-      
-      secondCard = this;
-      flipOpen(secondCard);
-      setTimeout(() => {
+        secondCard = this;
+        flipOpen(secondCard);
         checkForMatch();
-      },500);
 
   }
   function checkForMatch() {
@@ -122,8 +115,7 @@ scoreDOM.value = `SCORE: ${point}`;
       setTimeout(() => {
       zoomCard(firstCard);
       zoomCard(secondCard);
-      }, 500);
-    
+      }, 800);    
       firstCard.removeEventListener('click', flipCard);
       secondCard.removeEventListener('click', flipCard);
       setTimeout(() => {
@@ -132,8 +124,7 @@ scoreDOM.value = `SCORE: ${point}`;
         firstCard.remove(); 
         secondCard.remove();
         resetBoard();
-      },1000) 
-
+        },1000) 
       isWin++;
       setTimeout(() => {
             if (isWin == 10) alert('YOU WIN! SCORE = ' + point);},500);
@@ -166,40 +157,22 @@ scoreDOM.value = `SCORE: ${point}`;
       [hasFlippedCard, lockBoard] = [false, false];
       [firstCard, secondCard] = [null, null];
   }
-  
-  let stylePlay = {
-      position: 'absolute',
-      width: 150,
-      height: 50,
-      fontSize: '20px',
-      x: 186,
-      y: 30,
-      name: 'PLAY'
-  }
+ 
   let btnPlay = new Button();
-      btnPlay._initStyleElement(stylePlay);
+      btnPlay._initStyleElement(186, 30, 'PLAY');
       btnPlay.view.onclick = function () {
+        btnPlay.view.hidden = true;
         createCards('PLAY');
         setTimeout(() => {
-          score.view.hidden = false;
-          btnPlay.view.hidden = true;
+          score.view.hidden = false;         
           btnRetry.view.hidden = false;
           btnReplay.view.hidden = false;
-        },3000);
+        },2000);
       }
   document.body.appendChild(btnPlay.view);
 
-  let styleRePlay = {
-      position: 'absolute',
-      width: 150,
-      height: 50,
-      fontSize: '20px',
-      x: 10,
-      y: 30,
-      name: 'REPLAY'
-  }
   let btnReplay = new Button();
-      btnReplay._initStyleElement(styleRePlay);
+      btnReplay._initStyleElement(10, 30, 'REPLAY');
       btnReplay.view.hidden = true;
       btnReplay.view.onclick = function () {
         point = 10000;
@@ -209,17 +182,8 @@ scoreDOM.value = `SCORE: ${point}`;
       }
   document.body.appendChild(btnReplay.view);
 
-  let styleRetry = {
-      position: 'absolute',
-      width: 150,
-      height: 50,
-      fontSize: '20px',
-      x: 365,
-      y: 30,
-      name: 'RETRY'
-  }
   let btnRetry = new Button();
-      btnRetry._initStyleElement(styleRetry);
+      btnRetry._initStyleElement(365, 30, 'RETRY');
       btnRetry.view.hidden = true;
       btnRetry.view.onclick = function () {
         point = 10000;
@@ -229,9 +193,9 @@ scoreDOM.value = `SCORE: ${point}`;
       }
   document.body.appendChild(btnRetry.view);
 
-
   function detroyCard() {
     for (let item of arrCovers)
     item.remove();
     arrCovers = [];
+    num = 0;
   }

@@ -6,7 +6,7 @@ export class Node {
         this._height = 0;
         this._active = true;
         this.children = [];
-        this.initView();
+        this._initView();
     }
     get x() {
         return this._x;
@@ -37,7 +37,7 @@ export class Node {
         this._height = value;
         this.view.style.height = this._height.toString() + 'px';
     }
-    initView() {
+    _initView() {
         this.view = document.createElement('div');
     }
     addChild(node){

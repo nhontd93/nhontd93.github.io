@@ -5,14 +5,14 @@ export class Button extends Node{
         this._initView();
     }
 
-    _initStyleElement(obj) {
-        this.view.style.position = obj.position;
-        this.width = obj.width;
-        this.height = obj.height;
-        this.view.style.fontSize = obj.fontSize;
-        this.x = obj.x;
-        this.y = obj.y;
-        this.view.innerHTML = obj.name;
+    _initStyleElement(x, y, name) {
+        this.view.style.position = 'absolute';
+        this.width = 150;
+        this.height = 50;
+        this.view.style.fontSize = '20px';
+        this.x = x;
+        this.y = y;
+        this.view.innerHTML = name;
     }
     _initView() {
         this.view = document.createElement('button');
